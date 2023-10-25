@@ -1,0 +1,78 @@
+
+
+/usr/libexec/java_home
+
+cd /Library/Java/JavaVirtualMachines/jdk-14.0.2.jdk/Contents/Home
+
+sudo keytool -genkey -v -keystore my-calculator-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000
+
+keypassword : jibon#@!365
+
+
+Step 2 : Go to the android -> app -> gradle.properties 
+
+MYAPP_UPLOAD_STORE_FILE=my-calculator-key.keystore
+
+MYAPP_UPLOAD_KEY_ALIAS=my-key-alias
+
+MYAPP_UPLOAD_STORE_PASSWORD=jibon#@!365
+
+MYAPP_UPLOAD_KEY_PASSWORD=jibon#@!365
+
+
+Step 3 : navigate to android -> app -> build.gradle
+
+android {
+    ...
+    signingConfigs {
+        release {
+            if (project.hasProperty('MYAPP_UPLOAD_STORE_FILE')) {
+                storeFile file(MYAPP_UPLOAD_STORE_FILE)
+                storePassword MYAPP_UPLOAD_STORE_PASSWORD
+                keyAlias MYAPP_UPLOAD_KEY_ALIAS
+                keyPassword MYAPP_UPLOAD_KEY_PASSWORD
+            }
+        }
+    }
+    buildTypes {
+        release {
+            ...
+            signingConfig signingConfigs.release
+        }
+    }
+}
+
+Step 4 : Changing The Name And The Package Name Of The Application
+
+npx react-native-rename "new_name_of_the_app" -b new_package_name_of_the_app
+or
+npx react-native-rename "Jibon_Calculator" -b Jibon_Calculator
+
+
+Step 5 : Changing The Version
+
+# Added Package 
+yarn global add react-native-version
+
+npx react-native-version --never-amend
+
+
+Step 6 : Generate Icon
+
+Go to this site : https://www.appicon.co/
+Now open android -> app -> src -> main -> res
+
+Also need rounded image
+
+
+Step 7 : Now build first release
+
+cd android
+./gradlew bundleRelease
+
+
+
+Note : https://app.privacypolicies.com/
+
+
+Google69#@!github
