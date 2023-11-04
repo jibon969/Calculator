@@ -5,7 +5,6 @@ import { ThemeContext } from './src/context/ThemeContext';
 import MyKeyboard from './src/components/MyKeyboard';
 
 
-
 export default function App() {
   const [theme, setTheme] = useState('light');
   return (
